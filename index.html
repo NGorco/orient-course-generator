@@ -13,41 +13,64 @@
   <div id="generator">
     <div id="controls">
       <h1 id="course-length"></h1>
-      <table>
-        <tr>
-          <td colspan="2"><button id="draw-arena-area">Draw Arena Area</button></td>
-        </tr>
-        <tr>
-          <td colspan="2"><button id="draw-course">Draw Course</button></td>
-        </tr>
+      <table class="settings">
         <tr>
           <td>Length</td>
-          <td><input type="number" id="length"></td>
+          <td><input type="number" class="modelInput" value="1500" e-change="courseLength"></td>
         </tr>
         <tr>
           <td>Points number</td>
-          <td><input type="number" id="length"></td>
+          <td><input type="number" class="modelInput" e-change="pointsNum"></td>
+        </tr>
+        <tr>
+          <td>Tracks distances</td>
+          <td><input type="text" class="modelInput" value="[80, 120, 200]" e-change="trackDistances"></td>
         </tr>
         <tr>
           <td>Track min</td>
-          <td><input type="number" id="length"></td>
+          <td><input type="number" class="modelInput" value="0.9" e-change="trackMin"></td>
         </tr>
         <tr>
           <td>Track max</td>
-          <td><input type="number" id="length"></td>
+          <td><input type="number" class="modelInput" value="1.1" e-change="trackMax"></td>
         </tr>
         <tr>
-          <td colspan="2"><button id="generateButton">Generate</button></td>
+          <td>Long track value</td>
+          <td><input type="number" class="modelInput" value="200" e-change="longTrackValue"></td>
         </tr>
-
+        <tr>
+          <td>Long tracks max</td>
+          <td><input type="number" class="modelInput" value="10" e-change="longTracksMax"></td>
+        </tr>
+      </table>
+      <table class="actions">
+        <tr>
+          <td colspan="2"><button class="actionButton" e-click="drawArenaArea">Draw Arena Area</button></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button class="actionButton" e-click="loadArenaArea">Load Arena Area</button></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button class="actionButton" e-click="editArenaArea">Edit Arena Area</button></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button class="actionButton" e-click="drawCourse">Draw Course</button></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button class="actionButton" e-click="generateCourse">Generate</button></td>
+        </tr>
       </table>
     </div>
     <div id="bg"></div>
     <svg id="arena-area"></svg>
     <svg id="course"></svg>
   </div>
-  <script src="./generator.js"></script>
-
+  <script src="js/utils.js"></script>
+  <script src="js/base-classes.js"></script>
+  <script src="js/controls.js"></script>
+  <script src="js/course.js"></script>
+  <script src="js/area.js"></script>
+  <script src="js/drawer.js"></script>
 </body>
 
 </html>
