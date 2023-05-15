@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generator</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div id="generator">
+    <div id="controls">
+      <h1 id="course-length"></h1>
+      <table>
+        <tr>
+          <td colspan="2"><button id="draw-arena-area">Draw Arena Area</button></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button id="draw-course">Draw Course</button></td>
+        </tr>
+        <tr>
+          <td>Length</td>
+          <td><input type="number" id="length"></td>
+        </tr>
+        <tr>
+          <td>Points number</td>
+          <td><input type="number" id="length"></td>
+        </tr>
+        <tr>
+          <td>Track min</td>
+          <td><input type="number" id="length"></td>
+        </tr>
+        <tr>
+          <td>Track max</td>
+          <td><input type="number" id="length"></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button id="generateButton">Generate</button></td>
+        </tr>
+
+      </table>
+    </div>
+    <div id="bg"></div>
+    <svg id="arena-area"></svg>
+    <svg id="course"></svg>
+  </div>
+  <script src="./generator.js"></script>
+
+</body>
+
+</html>
