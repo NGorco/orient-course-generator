@@ -10,8 +10,8 @@ function getRandomArbitrary(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-function movable(element, onmoved, onMouseUp = () => {}) {
-  document.addEventListener("mousedown", mousedown, false);
+function movable(surface, element, onmoved, onMouseUp = () => {}) {
+  surface.addEventListener("mousedown", mousedown, false);
   var mousedown_points;
   function mousedown(e) {
     if (GlobalGlags.drawingCourse || GlobalGlags.drawingDraftArena) {
@@ -21,21 +21,21 @@ function movable(element, onmoved, onMouseUp = () => {}) {
     var target = e.target;
     if (target === element) {
       mousedown_points = {
-        x: e.clientX,
-        y: e.clientY,
+        x: e.offsetX,
+        y: e.offsetY,
       };
-      document.addEventListener("mouseup", mouseup, false);
-      document.addEventListener("mousemove", mousemove, false);
+      surface.addEventListener("mouseup", mouseup, false);
+      surface.addEventListener("mousemove", mousemove, false);
     }
   }
 
   function mousemove(e) {
-    onmoved(e.clientX, e.clientY);
+    onmoved(e.offsetX, e.offsetY);
   }
 
   function mouseup(e) {
     onMouseUp();
-    document.removeEventListener("mouseup", mouseup, false);
-    document.removeEventListener("mousemove", mousemove, false);
+    surface.removeEventListener("mouseup", mouseup, false);
+    surface.removeEventListener("mousemove", mousemove, false);
   }
 }

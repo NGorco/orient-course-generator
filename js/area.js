@@ -1,7 +1,7 @@
 class AreaPoint extends GlobalPoint {
   constructor(x, y, arenaEl, arenaObj) {
     super(x, y, arenaEl, arenaObj);
-    movable(this.element, (x, y) => {
+    movable(arenaEl, this.element, (x, y) => {
       this.setCoords(x, y);
       arenaObj.redrawArea();
     }, () => {
@@ -57,7 +57,7 @@ class DraftLine extends Line {
 
     arenaEl.addEventListener("click", (ev) => {
       if (GlobalGlags.drawingDraftArena) {
-        this.addPath(ev.clientX, ev.clientY);
+        this.addPath(ev.offsetX, ev.offsetY);
       }
     });
   }

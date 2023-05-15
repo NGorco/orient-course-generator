@@ -19,6 +19,20 @@ class AreaDrawer extends Easy {
     }
   }
 
+  uploadMap() {
+    let file = document.querySelector('#mapFile').files[0];
+
+    var reader = new FileReader();
+    reader.onloadend = function(){
+      const bg = document.querySelector('#bg');
+        bg.style.backgroundImage = "url(" + reader.result + ")";
+        document.querySelector('#mapFile').value = '';
+    }
+    if(file){
+        reader.readAsDataURL(file);
+    }
+  }
+
   toggleArena() {
     this.arenaAreaEl.classList.toggle('invisible');
   }

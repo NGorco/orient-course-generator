@@ -3,7 +3,7 @@ class CoursePoint extends GlobalPoint {
   constructor(x, y, courseEl, courseObject) {
     super(x, y, courseEl, courseObject);
     this.maskingPoint = new GlobalPoint(x, y, courseObject.mask, courseObject);
-    movable(this.element, (x, y) => {
+    movable(courseEl, this.element, (x, y) => {
       this.setCoords(x, y);
       this.maskingPoint.setCoords(x, y);
       courseObject.redrawArea();
@@ -26,7 +26,7 @@ class SvgNumber extends AreaElement {
     elem.innerHTML = text;    
     elem.classList.add('course-number');
     this.setCoords(x-20,y-10);
-    movable(elem, (x, y) => {
+    movable(courseEl, elem, (x, y) => {
       this.setCoords(x,y);
     });
     courseEl.appendChild(elem);
@@ -64,7 +64,7 @@ class CourseLine extends Line {
     courseEl.addEventListener("click", (ev) => {
       if (GlobalGlags.drawingCourse) {
         this.addPath(ev.clientX, ev.clientY);
-        this.points.push(new CoursePoint(ev.clientX, ev.clientY, courseEl, this));
+        this.points.push(new CoursePoint(ev.offsetX, ev.offsetY, courseEl, this));
       }
     });
   }

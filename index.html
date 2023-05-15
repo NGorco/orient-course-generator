@@ -42,6 +42,10 @@
           <td>Long tracks max</td>
           <td><input type="number" class="modelInput" value="10" e-change="longTracksMax"></td>
         </tr>
+        <tr>
+          <td>Map file</td>
+          <td><input type="file" class="modelInput" id="mapFile"></td>
+        </tr>
       </table>
       <table class="actions">
         <tr>
@@ -56,6 +60,9 @@
         </tr>
         <tr>
           <td colspan="2"><button e-click="drawCourse">Draw Course</button></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button e-click="uploadMap">Upload map</button></td>
         </tr>
         <tr>
           <td colspan="2"><button e-click="generateCourse">Generate</button></td>
