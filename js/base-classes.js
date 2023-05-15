@@ -37,19 +37,29 @@ class Line extends AreaElement {
 class Easy {
   constructor(rootElem) {
     rootElem.querySelectorAll(`[e-change]`).forEach(el => {
-      const model = el.getAttribute(`e-change`);
+      try {
+        const model = el.getAttribute(`e-change`);
 
-      el.addEventListener('change', () => {
+        el.addEventListener('change', () => {
+          try {
+            if (el.type === 'number') {
+              this[model] = parseInt(el.value);
+            } else {
+              this[model] = el.value;
+            }
+          } catch (error) {
+            throw new Error(`Error listener e-change: ${model}`);
+          }
+
+        });
         if (el.type === 'number') {
           this[model] = parseInt(el.value);
         } else {
           this[model] = el.value;
         }
-      });
-      if (el.type === 'number') {
-        this[model] = parseInt(el.value);
-      } else {
-        this[model] = el.value;
+      } catch (error) {
+        console.error(`Error setting e-change: ${model}`);
+        throw new Error(error);
       }
     });
 
@@ -57,7 +67,12 @@ class Easy {
       const methodName = el.getAttribute(`e-click`);
 
       el.addEventListener('click', (e) => {
-        this[methodName](e, el);
+        try {
+          this[methodName](e, el);
+        } catch (e) {
+          console.error(`Error listening e-click: ${methodName}`);
+          throw new Error(e);
+        }
       });
     });
   }

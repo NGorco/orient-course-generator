@@ -156,6 +156,10 @@ table {
   fill: none
 }
 
+#arena-area.invisible {
+  opacity: 0;
+}
+
 #course.active,
 #arena-area.active {
   z-index: 3;

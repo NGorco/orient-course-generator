@@ -19,6 +19,10 @@ class AreaDrawer extends Easy {
     }
   }
 
+  toggleArena() {
+    this.arenaAreaEl.classList.toggle('invisible');
+  }
+
   generateCourse() {
     this.courseLine.generateCourse();
   }
