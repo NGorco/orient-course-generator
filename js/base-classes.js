@@ -34,6 +34,27 @@ class Line extends AreaElement {
   }
 }
 
+/**
+ * Easy UI controls bidning 
+ * 
+ * Usage: 
+ * ```html
+ * <div id="easycontrol">
+ *    <button e-click="myMethod">Click me</button>
+ *    <input e-model="myModel">
+ * </div>
+ * ```
+ * 
+ * ```js
+ * class EasyControl extends Easy { 
+ *    myMethod() {
+ *        console.log(this.myModel)
+ *    }
+ * }
+ * 
+ * const t = new EasyControl(window.easycontrol);
+ * ```
+ */
 class Easy {
   constructor(rootElem) {
     rootElem.querySelectorAll(`[e-change]`).forEach(el => {
