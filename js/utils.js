@@ -1,4 +1,4 @@
-const GlobalGlags = {
+const GlobalFlags = {
   drawingCourse: false,
   drawingDraftArena: false,
   editingDraftArena: false,
@@ -10,11 +10,11 @@ function getRandomArbitrary(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-function movable(surface, element, onmoved, onMouseUp = () => {}) {
+function movable(surface, element, onmoved, onMouseUp = () => { }) {
   surface.addEventListener("mousedown", mousedown, false);
   var mousedown_points;
   function mousedown(e) {
-    if (GlobalGlags.drawingCourse || GlobalGlags.drawingDraftArena) {
+    if (GlobalFlags.drawingCourse || GlobalFlags.drawingDraftArena) {
       return false;
     }
 

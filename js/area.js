@@ -56,7 +56,7 @@ class DraftLine extends Line {
     arenaEl.appendChild(this.element);
 
     arenaEl.addEventListener("click", (ev) => {
-      if (GlobalGlags.drawingDraftArena) {
+      if (GlobalFlags.drawingDraftArena) {
         this.addPath(ev.offsetX, ev.offsetY);
       }
     });

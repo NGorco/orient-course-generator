@@ -7,7 +7,7 @@ class AreaDrawer extends Easy {
   }
 
   loadArenaArea() {
-     let mapAreas = localStorage.getItem('mapAreas');
+    let mapAreas = localStorage.getItem('mapAreas');
 
     if (mapAreas) {
       mapAreas = JSON.parse(mapAreas);
@@ -23,13 +23,13 @@ class AreaDrawer extends Easy {
     let file = document.querySelector('#mapFile').files[0];
 
     var reader = new FileReader();
-    reader.onloadend = function(){
+    reader.onloadend = function () {
       const bg = document.querySelector('#bg');
-        bg.style.backgroundImage = "url(" + reader.result + ")";
-        document.querySelector('#mapFile').value = '';
+      bg.style.backgroundImage = "url(" + reader.result + ")";
+      document.querySelector('#mapFile').value = '';
     }
-    if(file){
-        reader.readAsDataURL(file);
+    if (file) {
+      reader.readAsDataURL(file);
     }
   }
 
@@ -42,48 +42,48 @@ class AreaDrawer extends Easy {
   }
 
   drawCourse(ev, $this) {
-    if (GlobalGlags.drawingCourse) {
+    if (GlobalFlags.drawingCourse) {
       this.finishDrawingCourse();
-      GlobalGlags.drawingCourse = false;
+      GlobalFlags.drawingCourse = false;
       this.courseAreaEl.classList.remove("active");
       $this.classList.remove("active");
     } else {
       this.courseLine?.deleteCourse();
       this.startDrawingCourse();
       this.courseAreaEl.classList.add("active");
-      GlobalGlags.drawingCourse = true;
+      GlobalFlags.drawingCourse = true;
       $this.classList.add("active");
     }
   }
 
   editArenaArea(ev, $this) {
-    if (GlobalGlags.editingDraftArena) {
-      GlobalGlags.editingDraftArena = false;
+    if (GlobalFlags.editingDraftArena) {
+      GlobalFlags.editingDraftArena = false;
       this.arenaAreaEl.classList.remove("active");
       $this.classList.remove("active");
     } else {
       this.arenaAreaEl.classList.add("active");
-      GlobalGlags.editingDraftArena = true;
+      GlobalFlags.editingDraftArena = true;
       $this.classList.add("active");
     }
   }
 
   drawArenaArea(ev, $this) {
-    if (GlobalGlags.drawingDraftArena) {
+    if (GlobalFlags.drawingDraftArena) {
       this.finishDrawingArena();
-      GlobalGlags.drawingDraftArena = false;
+      GlobalFlags.drawingDraftArena = false;
       this.arenaAreaEl.classList.remove("active");
       $this.classList.remove("active");
     } else {
       this.arenaAreaEl.classList.add("active");
       this.arenaArea?.deleteArena();
       this.startDrawingArena();
-      GlobalGlags.drawingDraftArena = true;
+      GlobalFlags.drawingDraftArena = true;
       $this.classList.add("active");
     }
   }
 
-  finishDrawingCourse() {}
+  finishDrawingCourse() { }
 
   startDrawingCourse() {
     if (!this.courseLine) {

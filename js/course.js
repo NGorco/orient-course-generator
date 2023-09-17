@@ -1,5 +1,12 @@
-
+// @ts-check
 class CoursePoint extends GlobalPoint {
+  /**
+   * 
+   * @param {number} x 
+   * @param {number} y 
+   * @param {HTMLElement} courseEl 
+   * @param {CourseLine} courseObject 
+   */
   constructor(x, y, courseEl, courseObject) {
     super(x, y, courseEl, courseObject);
     this.maskingPoint = new GlobalPoint(x, y, courseObject.mask, courseObject);
@@ -19,29 +26,48 @@ class CoursePoint extends GlobalPoint {
 }
 
 class SvgNumber extends AreaElement {
-  constructor(x,y, text, courseEl) {
+  /**
+   * 
+   * @param {number} x 
+   * @param {number} y 
+   * @param {string} text 
+   * @param {HTMLElement} courseEl 
+   */
+  constructor(x, y, text, courseEl) {
     const elem = document.createElementNS("http://www.w3.org/2000/svg", "text");
     super(elem);
     this.element = elem;
-    elem.innerHTML = text;    
+    elem.innerHTML = text;
     elem.classList.add('course-number');
-    this.setCoords(x-20,y-10);
+    this.setCoords(x - 20, y - 10);
     movable(courseEl, elem, (x, y) => {
-      this.setCoords(x,y);
+      this.setCoords(x, y);
     });
     courseEl.appendChild(elem);
   }
 
+  /**
+   * 
+   * @param {number} x 
+   * @param {number} y 
+   */
   setCoords(x, y) {
     this.x = x;
     this.y = y;
-    this.element.setAttribute("x", x);
-    this.element.setAttribute("y", y);
+    this.element.setAttribute("x", x.toString());
+    this.element.setAttribute("y", y.toString());
   }
-
 }
 
 class CourseLine extends Line {
+  /**
+   * @type {CoursePoint[]}
+   */
+  points;
+  /**
+   * 
+   * @param {HTMLElement} courseEl 
+   */
   constructor(courseEl) {
     const elem = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
     super(elem);
@@ -62,7 +88,7 @@ class CourseLine extends Line {
     this.numbers = [];
 
     courseEl.addEventListener("click", (ev) => {
-      if (GlobalGlags.drawingCourse) {
+      if (GlobalFlags.drawingCourse) {
         this.addPath(ev.clientX, ev.clientY);
         this.points.push(new CoursePoint(ev.offsetX, ev.offsetY, courseEl, this));
       }
@@ -71,14 +97,18 @@ class CourseLine extends Line {
 
   redrawMask() {
     const bbox = this.element.getBBox();
-    this.maskVisible.setAttribute("x", bbox.x);
-    this.maskVisible.setAttribute("y", bbox.y);
-    this.maskVisible.setAttribute("width", bbox.width);
-    this.maskVisible.setAttribute("height", bbox.height);
+    this.maskVisible.setAttribute("x", bbox.x.toString());
+    this.maskVisible.setAttribute("y", bbox.y.toString());
+    this.maskVisible.setAttribute("width", bbox.width.toString());
+    this.maskVisible.setAttribute("height", bbox.height.toString());
   }
 
   generateCourse() {
     const fp = this.points.shift();
+    if (!fp) {
+      alert('No first point set!');
+      return;
+    }
     this.points.forEach((p) => p.fullDelete());
     this.points = [fp];
     const bs = arenaArea.element.getBBox();
@@ -110,13 +140,13 @@ class CourseLine extends Line {
       }
 
       if (
-        size == Ctrls.longTrackValue && 
-        Ctrls.longTrackValue * Ctrls.trackMin < l < Ctrls.longTrackValue * Ctrls.trackMax && 
+        size == Ctrls.longTrackValue &&
+        Ctrls.longTrackValue * Ctrls.trackMin < l < Ctrls.longTrackValue * Ctrls.trackMax &&
         twoh == Ctrls.longTracksMax) {
         continue;
       } else if (
-        size == Ctrls.longTrackValue && 
-        Ctrls.longTrackValue * Ctrls.trackMin < l < Ctrls.longTrackValue * Ctrls.trackMax && 
+        size == Ctrls.longTrackValue &&
+        Ctrls.longTrackValue * Ctrls.trackMin < l < Ctrls.longTrackValue * Ctrls.trackMax &&
         twoh < Ctrls.longTracksMax) {
         twoh++;
       }
@@ -128,12 +158,18 @@ class CourseLine extends Line {
 
     this.redrawArea();
     this.generateNumbers();
+
+    // Render course length
+    const courseElem = document.querySelector("#course-length");
+    if (courseElem) {
+      courseElem.innerHTML = this.getLineLength().toFixed(2);
+    }
   }
 
   generateNumbers() {
     this.numbers.forEach(n => n.delete());
     this.numbers = this.points.map((p, i) => {
-      return new SvgNumber(p.x, p.y, i+1, this.courseEl);
+      return new SvgNumber(p.x, p.y, (i + 1).toString(), this.courseEl);
     });
   }
 
@@ -154,6 +190,9 @@ class CourseLine extends Line {
       part0 = part;
     }
 
+    if (parseInt(Ctrls.courseLengthScale.toString(), 10) > 0) {
+      return len * parseInt(Ctrls.courseLengthScale.toString(), 10);
+    }
     return len;
   }
 }

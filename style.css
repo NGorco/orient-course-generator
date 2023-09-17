@@ -139,15 +139,15 @@ table {
 }
 
 #bg {
-  height: 600px;
-  width: 1000px;
+  height: 750px;
+  width: 1130px;
   position: absolute;
   top: 0;
   left: 210px;
   background-position: center !important;
   background-size: contain !important;
   z-index: -1;
-  background: no-repeat url('./../bales.jpg');
+  background-repeat: no-repeat;
 }
 
 .courseLine {
@@ -169,8 +169,8 @@ table {
 #course {
   position: absolute;
   z-index: 0;
-  width: 1000px;
-  height: 600px;
+  width: 1130px;
+  height: 750px;
   top: 0;
   left: 210px;
 }
